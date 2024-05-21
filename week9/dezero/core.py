@@ -166,20 +166,6 @@ class Function:
     def backward(self, gy):
         return NotImplementedError()
     
-class Exp(Function):
-    def forward(self, x):
-        return np.exp(x)
-    
-    def backward(self, gy):
-        return gy * np.exp(self.inputs[0].data)
-    
-class Square(Function):
-    def forward(self, x):
-        return x ** 2
-    
-    def backward(self, gy):
-        return gy * 2 * self.inputs[0].data
-    
 class Add(Function):
     def forward(self, x0, x1):
         #x1 = as_array(x1)
@@ -226,12 +212,6 @@ class Pow(Function):
     
     def backward(self, gy):
         return gy * self.c * self.inputs[0] ** (self.c - 1)
-
-def exp(x):
-    return Exp()(x)
-
-def square(x):
-    return Square()(x)
 
 def add(x0, x1):
     return Add()(x0, x1)
