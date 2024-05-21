@@ -44,7 +44,7 @@ class Variable:
         self.creator = func
         self.generation = func.generation + 1
 
-    def clean_grad(self):
+    def cleargrad(self):
         self.grad = None
 
     def backward(self, retain_grad=False):
@@ -155,7 +155,6 @@ class Function:
                 output.set_creator(self)
             self.outputs = [weakref.ref(output) for output in outputs]
             self.inputs = inputs
-            
         return outputs if len(outputs) > 1 else outputs[0]
     
     def forward(self, x):

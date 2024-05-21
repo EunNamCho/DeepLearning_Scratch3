@@ -44,7 +44,7 @@ class Variable:
         self.creator = func
         self.generation = func.generation + 1
 
-    def clean_grad(self):
+    def cleargrad(self):
         self.grad = None
 
     def backward(self, retain_grad=False, create_graph=False):
@@ -150,12 +150,14 @@ class Function:
         if not isinstance(ys, tuple):
             ys = ys,
         outputs = [Variable(as_array(y)) for y in ys]
-
-        self.generation = max([input.generation for input in inputs])
-        for output in outputs:
-            output.set_creator(self)
-        self.outputs = [weakref.ref(output) for output in outputs]
-        self.inputs = inputs
+        
+        if Config.enable_backprop:
+            self.generation = max([input.generation for input in inputs])
+            for output in outputs:
+                output.set_creator(self)
+            self.outputs = [weakref.ref(output) for output in outputs]
+            self.inputs = inputs
+            
         return outputs if len(outputs) > 1 else outputs[0]
     
     def forward(self, x):
@@ -223,7 +225,7 @@ class Pow(Function):
         return x ** self.c
     
     def backward(self, gy):
-        return gy * self.c * self.inputs[0].data ** (self.c - 1)
+        return gy * self.c * self.inputs[0] ** (self.c - 1)
 
 def exp(x):
     return Exp()(x)
