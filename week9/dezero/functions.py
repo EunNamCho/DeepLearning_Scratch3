@@ -29,6 +29,13 @@ class Square(Function):
     def backward(self, gy):
         return gy * 2 * self.inputs[0]
     
+class Tanh(Function):
+    def forward(self, x):
+        return np.tanh(x)
+    
+    def backward(self, gy):
+        return gy * (1 - self.outputs[0]() * self.outputs[0]())
+    
 def exp(x):
     return Exp()(x)
 
@@ -40,3 +47,6 @@ def sin(x):
 
 def cos(x):
     return Cos()(x)
+
+def tanh(x):
+    return Tanh()(x)

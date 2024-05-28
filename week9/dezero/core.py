@@ -31,7 +31,7 @@ def no_grad():
 
 class Variable:
     def __init__(self, data:np.array, name=None):
-        if not data:
+        if not data.any():
             if not isinstance(data, np.ndarray):
                 raise TypeError(f"{type(data)}은(는) 지원하지 않습니다.")
         self.data = data
