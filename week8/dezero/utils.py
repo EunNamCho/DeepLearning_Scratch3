@@ -49,7 +49,7 @@ def get_dot_graph(output, verbose=True):
 def plot_dot_graph(output, verbose=True, to_file='graph.png'):
     dot_graph = get_dot_graph(output, verbose)
 
-    tmp_dir = os.path.join(os.path.expanduser("~"), '.dezero')
+    tmp_dir = os.path.join(os.getcwd(), '.dezero') #### 원래는 os.path.expanduser('~') 인데, 현재 working 디렉토리에 만들고 싶어서 getcwd로 변경
     if not os.path.exists(tmp_dir):
         os.mkdir(tmp_dir)
     graph_path = os.path.join(tmp_dir, 'tmp_graph.dot')
