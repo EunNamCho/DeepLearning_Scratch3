@@ -107,36 +107,6 @@ class Variable:
             return "variable(None)"
         p = str(self.data).replace('\n', '\n' + ' ' * 9)
         return 'variable(' + p + ")"
-    
-    def __mul__(self, other):
-        return mul(self, other)
-    
-    def __add__(self, other):
-        return add(self, other)
-    
-    def __rmul__(self, other):
-        return mul(other, self)
-    
-    def __radd__(self, other):
-        return add(other, self)
-    
-    def __neg__(self):
-        return neg(self)
-    
-    def __sub__(self, other):
-        return sub(self, other)
-    
-    def __rsub__(self, other):
-        return sub(other, self)
-    
-    def __truediv__(self, other):
-        return div(self, other)
-    
-    def __rtruediv__(self, other):
-        return div(other, self)
-    
-    def __pow__(self, c):
-        return pow(self, c)
 
 
 class Function:
